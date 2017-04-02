@@ -75,7 +75,6 @@ public class PaintBlocksTask extends BukkitRunnable
             
             FallingBlock fb = this.getWorld().spawnFallingBlock( new Location( this.getWorld(), x, this.getFallingBlockHeight(), z ), Material.WOOL, (byte) data );
             fb.setDropItem( false );
-            fb.setGlowing( true );
             fb.setHurtEntities( false );
         }
     }
