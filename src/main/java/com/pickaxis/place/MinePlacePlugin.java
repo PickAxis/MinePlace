@@ -135,7 +135,13 @@ public class MinePlacePlugin extends JavaPlugin
                     
                     if( this.getBlocksDoneTotal() == 1000000 )
                     {
+                        Logger.getLogger( MinePlacePlugin.class.getName() ).log( Level.INFO, "Done painting initial bitmap." );
                         this.cancel();
+                        
+                        if( MinePlacePlugin.getInstance().getConfig().getBoolean( "rerender-from-initial", false ) )
+                        {
+                            MinePlacePlugin.getInstance().paintInitialImage();
+                        }
                     }
                 }
             }.runTaskTimer( this, 1, 1 );
