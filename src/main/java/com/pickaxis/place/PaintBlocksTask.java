@@ -32,6 +32,8 @@ public class PaintBlocksTask extends BukkitRunnable
     
     private final int height = MinePlacePlugin.getInstance().getConfig().getInt( "height", 60 );
     
+    private final int fallingBlockHeight = MinePlacePlugin.getInstance().getConfig().getInt( "falling-block-height", 90 );
+    
     private int blocksDoneTotal = 0;
     
     public PaintBlocksTask()
@@ -58,16 +60,20 @@ public class PaintBlocksTask extends BukkitRunnable
     {
         int x = seq % 1000;
         int z = seq / 1000;
+        
         Block block = this.getWorld().getBlockAt( x, this.getHeight(), z );
+        
         if( block.getType() != Material.WOOL )
         {
             block.setType( Material.WOOL );
         }
-        if( block.getData() != data )
+        
+        byte woolColor = PlaceColor.getColorById( data ).getWoolColor();
+        if( block.getData() != woolColor )
         {
-            block.setData( PlaceColor.getColorById( data ).getWoolColor() );
+            block.setData( woolColor );
             
-            FallingBlock fb = this.getWorld().spawnFallingBlock( new Location( this.getWorld(), x, this.getHeight() * 2, z ), Material.WOOL, (byte) data );
+            FallingBlock fb = this.getWorld().spawnFallingBlock( new Location( this.getWorld(), x, this.getFallingBlockHeight(), z ), Material.WOOL, (byte) data );
             fb.setDropItem( false );
             fb.setGlowing( true );
             fb.setHurtEntities( false );
