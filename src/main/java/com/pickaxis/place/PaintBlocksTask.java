@@ -73,7 +73,7 @@ public class PaintBlocksTask extends BukkitRunnable
         {
             block.setData( woolColor );
             
-            FallingBlock fb = this.getWorld().spawnFallingBlock( new Location( this.getWorld(), x, this.getFallingBlockHeight(), z ), Material.WOOL, (byte) data );
+            FallingBlock fb = this.getWorld().spawnFallingBlock( new Location( this.getWorld(), x, this.getFallingBlockHeight(), z ), Material.WOOL, woolColor );
             fb.setDropItem( false );
             fb.setHurtEntities( false );
         }
