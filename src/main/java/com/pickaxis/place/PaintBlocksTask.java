@@ -10,9 +10,11 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.entity.FallingBlock;
 import org.bukkit.scheduler.BukkitRunnable;
 
 /**
@@ -64,6 +66,11 @@ public class PaintBlocksTask extends BukkitRunnable
         if( block.getData() != data )
         {
             block.setData( PlaceColor.getColorById( data ).getWoolColor() );
+            
+            FallingBlock fb = this.getWorld().spawnFallingBlock( new Location( this.getWorld(), x, this.getHeight() * 2, z ), Material.WOOL, (byte) data );
+            fb.setDropItem( false );
+            fb.setGlowing( true );
+            fb.setHurtEntities( false );
         }
     }
     
@@ -76,7 +83,7 @@ public class PaintBlocksTask extends BukkitRunnable
             int data = -1;
             try
             {
-                data = is.read();
+                data = this.getIs().read();
             }
             catch( IOException ex )
             {

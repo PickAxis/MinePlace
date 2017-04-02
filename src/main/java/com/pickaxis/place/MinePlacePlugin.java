@@ -43,6 +43,8 @@ public class MinePlacePlugin extends JavaPlugin
         
         this.getCommand( "mineplace" ).setExecutor( new MinePlaceCommand() );
         
+        this.getServer().getPluginManager().registerEvents( new FallingBlockListener(), this );
+        
         new PaintBlocksTask().runTaskTimer( this, 1, 1 );
     }
     
