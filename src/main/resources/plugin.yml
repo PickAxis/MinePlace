@@ -1,0 +1,8 @@
+name: MinePlace
+version: ${project.version}
+author: NickG365
+main: com.pickaxis.place.MinePlacePlugin
+commands:
+    mineplace:
+        description: MinePlace build information command.
+        usage: /<command>
