@@ -93,14 +93,21 @@ public class MinePlacePlugin extends JavaPlugin
                 @Setter( AccessLevel.PRIVATE )
                 private int blocksDoneTotal = 0;
                 
+                @SuppressWarnings( "deprecation" )
                 private void placeBlock( int seq, int data )
                 {
                     int x = seq % 1000;
                     int z = seq / 1000;
                     
                     Block block = this.getWorld().getBlockAt( x, this.getHeight(), z );
-                    block.setType( Material.WOOL );
-                    block.setData( PlaceColor.getColorById( data ).getWoolColor() );
+                    if( block.getType() != Material.WOOL )
+                    {
+                        block.setType( Material.WOOL );
+                    }
+                    if( block.getData() != data )
+                    {
+                        block.setData( PlaceColor.getColorById( data ).getWoolColor() );
+                    }
                 }
                 
                 @Override
