@@ -110,7 +110,7 @@ public class PaintBlocksTask extends BukkitRunnable
             this.cancel();
             if( MinePlacePlugin.getInstance().getConfig().getBoolean( "rerender-from-initial", false ) )
             {
-                new PaintBlocksTask().runTaskTimer( MinePlacePlugin.getInstance(), 1, 1 );
+                new PaintBlocksTask().runTaskTimer( MinePlacePlugin.getInstance(), MinePlacePlugin.getInstance().getConfig().getInt( "time-between-renders", 1 ), 1 );
             }
         }
     }
