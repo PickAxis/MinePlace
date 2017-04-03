@@ -17,9 +17,6 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.scheduler.BukkitRunnable;
 
-/**
- * A near-perfect example of how *not* to write software. 
- */
 @Getter( value = AccessLevel.PRIVATE )
 @Setter( value = AccessLevel.PRIVATE )
 public class PaintBlocksTask extends BukkitRunnable
@@ -50,6 +47,7 @@ public class PaintBlocksTask extends BukkitRunnable
         try
         {
             this.setIs( new BufferedInputStream( new URL( "https://www.reddit.com/api/place/board-bitmap" ).openStream(), 5000004 ) );
+            
             // Skip first 4 bytes (timstamp).
             for( int i = 0; i < 4; i++ )
             {
@@ -109,13 +107,16 @@ public class PaintBlocksTask extends BukkitRunnable
                 Logger.getLogger( MinePlacePlugin.class.getName() ).log( Level.SEVERE, null, ex );
                 this.cancel();
             }
+            
             if( data == -1 )
             {
                 Logger.getLogger( MinePlacePlugin.class.getName() ).log( Level.SEVERE, "Got -1" );
                 this.cancel();
             }
+            
             this.placeBlock( this.blocksDoneTotal++, ( ( (byte) data ) >> 4 ) & 0x0f );
             this.placeBlock( this.blocksDoneTotal++, ( (byte) data ) & 0x0f );
+            
             blocksDoneTick += 2;
         }
         if( this.getBlocksDoneTotal() == 1000000 )
