@@ -21,6 +21,8 @@ public class MinePlacePlugin extends JavaPlugin
     
     private boolean debug;
     
+    private boolean stackBlocks;
+    
     public MinePlacePlugin()
     {
         MinePlacePlugin.setInstance( this );
@@ -40,10 +42,14 @@ public class MinePlacePlugin extends JavaPlugin
         }
         
         this.setDebug( this.getConfig().getBoolean( "debug", false ) );
+        this.setStackBlocks( this.getConfig().getBoolean( "stack-blocks", false ) );
         
         this.getCommand( "mineplace" ).setExecutor( new MinePlaceCommand() );
         
-        this.getServer().getPluginManager().registerEvents( new FallingBlockListener(), this );
+        if( !this.isStackBlocks() )
+        {
+            this.getServer().getPluginManager().registerEvents( new FallingBlockListener(), this );
+        }
         
         new PaintBlocksTask().runTaskTimer( this, 1, 1 );
     }
