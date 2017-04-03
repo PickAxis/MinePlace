@@ -26,17 +26,26 @@ public class PaintBlocksTask extends BukkitRunnable
 {
     private InputStream is;
     
-    private final int blocksPerTick = MinePlacePlugin.getInstance().getConfig().getInt( "blocks-per-tick", 100 );
+    private final int blocksPerTick;
     
-    private final World world = Bukkit.getWorld( MinePlacePlugin.getInstance().getConfig().getString( "world", "mineplace" ) );
+    private final World world;
     
-    private final int height = MinePlacePlugin.getInstance().getConfig().getInt( "height", 60 );
+    private final int height;
     
-    private final int fallingBlockHeight = MinePlacePlugin.getInstance().getConfig().getInt( "falling-block-height", 90 );
+    private final int fallingBlockHeight;
     
-    private int blocksDoneTotal = 0;
+    private int blocksDoneTotal;
     
     public PaintBlocksTask()
+    {
+        this.blocksPerTick = MinePlacePlugin.getInstance().getConfig().getInt( "blocks-per-tick", 100 );
+        this.world = Bukkit.getWorld( MinePlacePlugin.getInstance().getConfig().getString( "world", "mineplace" ) );
+        this.height = MinePlacePlugin.getInstance().getConfig().getInt( "height", 60 );
+        this.fallingBlockHeight = MinePlacePlugin.getInstance().getConfig().getInt( "falling-block-height", 90 );
+        this.blocksDoneTotal = 0;
+    }
+    
+    private void init()
     {
         try
         {
@@ -82,6 +91,11 @@ public class PaintBlocksTask extends BukkitRunnable
     @Override
     public void run()
     {
+        if( blocksDoneTotal == 0 )
+        {
+            this.init();
+        }
+        
         int blocksDoneTick = 0;
         while( blocksDoneTick < this.getBlocksPerTick() )
         {
