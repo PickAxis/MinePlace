@@ -38,25 +38,6 @@ public enum PlaceColor
     
     public static PlaceColor getColorById( int id )
     {
-        switch( id )
-        {
-            case 0: return WHITE;
-            case 1: return LIGHT_GRAY;
-            case 2: return GRAY;
-            case 3: return BLACK;
-            case 4: return PINK;
-            case 5: return RED;
-            case 6: return ORANGE;
-            case 7: return BROWN;
-            case 8: return YELLOW;
-            case 9: return LIME;
-            case 10: return GREEN;
-            case 11: return LIGHT_BLUE;
-            case 12: return TEAL;
-            case 13: return BLUE;
-            case 14: return MAGENTA;
-            case 15: return PURPLE;
-            default: return null;
-        }
+        return PlaceColor.values()[ id ];
     }
 }
